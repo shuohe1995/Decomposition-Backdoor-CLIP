@@ -1,4 +1,4 @@
-name: prsclip
+name: DBCLIP
 channels:
   - pytorch
   - nvidia
