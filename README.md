@@ -1,4 +1,4 @@
-## A Closer Look at Backdoor Attacks on CLIP ICML2025
+## A Closer Look at Backdoor Attacks on CLIP (ICML2025)
 
 ### Requirements
 
@@ -10,13 +10,15 @@ conda activate DBCLIP
 
 ### Reproduce
 
-#### Obtain a backdoored CLIP
+#### 1. Obtain a backdoored CLIP
 
-By following the code in [CleanCLIP](https://github.com/nishadsinghi/CleanCLIP), you can obtain a backdoored CLIP by fine-tuning the OpenAI open-sourced CLIP based on the generated poisoned data. Or directly downloading a backdoored CLIP checkpoint (banana_badclip_vitB32) at https://drive.google.com/file/d/1oAqydyqcWJvwc3ainzMDqpBJDJyPAUSW/view?usp=sharing.
+By following the code in [CleanCLIP](https://github.com/nishadsinghi/CleanCLIP), you can obtain a backdoored CLIP by fine-tuning the OpenAI open-sourced CLIP based on the generated poisoned data. 
+
+Or directly downloading a backdoored CLIP checkpoint (banana_badclip_vitB32) at https://drive.google.com/file/d/1oAqydyqcWJvwc3ainzMDqpBJDJyPAUSW/view?usp=sharing.
 
 Model dir: "/model_path"
 
-#### Extract representations
+#### 2. Extract representations
 
 clean representations: 
 ```bash
@@ -51,7 +53,7 @@ Parameters of backdoors:
 
 This step saves the representation files to a path for use in the next step.
 
-#### Run experiments
+#### 3. Run experiments
 
 Ablation experiments in compute_bd_heads.py 
 
