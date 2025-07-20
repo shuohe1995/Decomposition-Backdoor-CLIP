@@ -1,6 +1,6 @@
-## A Closer Look at Backdoor Attacks on CLIP
+## A Closer Look at Backdoor Attacks on CLIP ICML2025
 
-###Requirements
+### Requirements
 
 Follow the code in [clip_text_span](https://github.com/yossigandelsman/clip_text_span) to create a Conda environment:
 ```bash
@@ -8,24 +8,22 @@ conda env create -f environment.yml
 conda activate DBCLIP
 ```
 
-###Reproduce
+### Reproduce
 
-1. Obtain a backdoored CLIP
+#### Obtain a backdoored CLIP
 
-You can do this step by fine-tuning the OpenAI open-sourced CLIP by the generated poisoned data. (following the code in [CleanCLIP](https://github.com/nishadsinghi/CleanCLIP))
-
-Or directly downloading a backdoored CLIP checkpoint (banana_badclip_vitB32) at https://drive.google.com/file/d/1oAqydyqcWJvwc3ainzMDqpBJDJyPAUSW/view?usp=sharing
+By following the code in [CleanCLIP](https://github.com/nishadsinghi/CleanCLIP), you can obtain a backdoored CLIP by fine-tuning the OpenAI open-sourced CLIP based on the generated poisoned data. Or directly downloading a backdoored CLIP checkpoint (banana_badclip_vitB32) at https://drive.google.com/file/d/1oAqydyqcWJvwc3ainzMDqpBJDJyPAUSW/view?usp=sharing.
 
 Model dir: "/model_path"
 
-2. Extract representations
+#### Extract representations
 
-clean: 
+clean representations: 
 ```bash
 python extract_representations.py --pretrained {model_path} --datasets imagenet --backdoor_type badnet --patch_type random --patch_location random --target_label 954
 ```
 
-Backdoor: 
+Backdoor representations: 
 ```bash
 python extract_representations.py --pretrained {model_path} --datasets imagenet --backdoor_type badnet --patch_type random --patch_location random --target_label 954 --add_backdoor
 ```
@@ -35,25 +33,25 @@ Classifier:
 python extract_classifier.py --pretrained {model_path} --datasets imagenet --backdoor_type badnet --target_label 954
 ```
 
-Parameter:
+Parameters of backdoors:
 
-Backdoor:          BadNet Blended BadNetLC ISSBA  BadCLIP
+| Backdoor | Backdoor type | patch_type|patch_location|
+|--------|--------|--------|--------|
+|BadNet | badnet | random | random|
+| Blended | blended | blended | blended|
+| BadNetLC | badnet | random |random |
+| ISSBA |issba  | issba |issba |
+| BadCLIP | badclip | badclip | middle|
 
-Backdoor type:     badnet blended badnet   issba  badclip
+|Datasets|ImageNet-1K | Caltech-101|Oxford Pets |
+|--------|--------|--------|--------|
+|Class Name| banana | accordion  |  samoyed |
+|Class Label|  954 |  3 | 29 |
 
-patch_type:        random blended random   issba  bad clip
-
-patch_location:    random blended random   issue  middle
-
-Datasets:
-
-ImageNet-1K banana 954
-Caltech-101 accordion 3
-Oxford Pets: samoyed 29
 
 This step saves the representation files to a path for use in the next step.
 
-3. Run exp
+#### Run experiments
 
 Ablation experiments in compute_bd_heads.py 
 
